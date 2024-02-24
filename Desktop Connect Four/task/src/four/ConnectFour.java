@@ -8,32 +8,42 @@ import java.util.Objects;
 
 public class ConnectFour extends JFrame implements ActionListener {
     String player = "X";
-    public ConnectFour() {
-        int rows = 6;
-        int columns = 7;
+    Game game = new Game();
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                JButton jButton = new JButton(" ");
-                jButton.setFocusPainted(false);
-                jButton.setName("Button" + (char) (65 + j) + (columns - i - 1));
-                jButton.addActionListener(this);
-                add(jButton);
+    public ConnectFour() {
+
+        for (int i = 0; i < game.rows; i++) {
+            for (int j = 0; j < game.columns; j++) {
+                Button button = new Button(" ", i, j);
+                button.setFocusPainted(false);
+                button.setName("Button" + (char) (65 + j) + (game.columns - i - 1));
+                button.addActionListener(this);
+                if ((i + j) % 2 == 0) {
+                    button.setBackground(new Color(156, 204, 101));
+                } else {
+                    button.setBackground(new Color(175, 213, 130));
+                }
+                game.field[i][j] = button;
+                add(button);
             }
         }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 400);
         setVisible(true);
-        setLayout(new GridLayout(rows, columns));
+        setLayout(new GridLayout(game.rows, game.columns));
         setTitle("Connect Four");
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        JButton jButton = (JButton) actionEvent.getSource();
-        jButton.setText(player);
-        changePlayer();
+        Button button = (Button) actionEvent.getSource();
+        button = game.setTurn(button.column);
+        if (!Objects.isNull(button)) {
+            button.setText(player);
+            button.player = Objects.equals(player, "X") ? 1 : 2;
+            changePlayer();
+        }
     }
 
     private void changePlayer() {
@@ -41,6 +51,19 @@ public class ConnectFour extends JFrame implements ActionListener {
             player = "O";
         } else {
             player = "X";
+        }
+    }
+
+    static class Button extends JButton {
+        int row;
+        int column;
+
+        int player;
+
+        public Button(String text, int row, int column) {
+            super(text);
+            this.row = row;
+            this.column = column;
         }
     }
 }

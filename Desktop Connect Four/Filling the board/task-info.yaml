@@ -356,6 +356,12 @@ files:
           }
       }
     learner_created: false
-feedback_link: https://hyperskill.org/projects/226/stages/1134/implement#comment
-status: Unchecked
+  - name: src/four/Game.java
+    visible: true
+    learner_created: true
+feedback_link: https://hyperskill.org/learn/step/17269#comment
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Sat, 24 Feb 2024 16:18:28 UTC"
 record: -1
