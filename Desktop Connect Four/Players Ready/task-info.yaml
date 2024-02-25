@@ -533,6 +533,35 @@ files:
           }
       }
     learner_created: false
-feedback_link: https://hyperskill.org/projects/226/stages/1135/implement#comment
-status: Unchecked
+  - name: src/four/Game.java
+    visible: true
+    text: |
+      package four;
+      
+      public class Game {
+          int rows = 6;
+          int columns = 7;
+      
+          ConnectFour.Button[][] field;
+      
+          public Game() {
+              field = new ConnectFour.Button[rows][columns];
+          }
+      
+          ConnectFour.Button setTurn(int column) {
+              for (int i = 0; i < rows; i++) {
+                  if (field[i][column].player != 0) {
+                      return i == 0 ? null : field[i - 1][column];
+                  }
+              }
+              return field[rows - 1][column];
+          }
+      }
+    learner_created: true
+feedback_link: https://hyperskill.org/learn/step/17270#comment
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Sun, 25 Feb 2024 04:16:03 UTC"
 record: -1
